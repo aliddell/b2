@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+ansible_dir = "/vagrant"
+ansible_data_dir = "/b2"
+playbook = File.join(ansible_dir, "provisioning", "playbook.yml")
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "debian/jessie64"
+
+  # syncs the whole repository to /b2 on the guest device
+  config.vm.synced_folder "../", ansible_data_dir
+
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.playbook = playbook
+    ansible.install_mode = "pip"
+    ansible.extra_vars = {
+      config_dir: ansible_dir,
+      b2_dir: ansible_data_dir
+    }
+  end
+end

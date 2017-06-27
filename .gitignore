@@ -84,3 +84,6 @@ serialization_test*
 *.app
 python/autom4te.cache
 *.bak
+
+# Vagrant directory
+.vagrant/

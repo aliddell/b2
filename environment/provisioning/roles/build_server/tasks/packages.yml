@@ -1,0 +1,31 @@
+---
+- name: install clang
+  apt:
+    name: clang
+    state: present
+    update_cache: yes
+
+- name: install eigen
+  apt:
+    name: libeigen3-dev
+    state: present
+
+- name: install libtool
+  apt:
+    name: libtool
+    state: present
+
+- name: install automake
+  apt:
+    name: automake
+    state: present
+
+- name: install autoconf
+  apt:
+    name: autoconf
+    state: present
+
+- name: download boost
+  get_url:
+    url: "{{ boost_download }}"
+    dest: /boost-{{ boost_ver }}.tar.bz2
