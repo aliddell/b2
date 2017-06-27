@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 ansible_dir = "/vagrant"
-ansible_data_dir = "/b2"
+ansible_data_dir = "/vagrant_data"
 playbook = File.join(ansible_dir, "provisioning", "playbook.yml")
 
 Vagrant.configure("2") do |config|
@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
     ansible.install_mode = "pip"
     ansible.extra_vars = {
       config_dir: ansible_dir,
-      b2_dir: ansible_data_dir
+      data_dir: ansible_data_dir
     }
   end
 end

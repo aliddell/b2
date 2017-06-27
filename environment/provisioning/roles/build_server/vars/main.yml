@@ -3,6 +3,8 @@ boost_ver: 1.61
 boost_download: "https://downloads.sourceforge.net/project/boost/boost/{{ boost_ver }}.0/boost_{{ boost_ver | regex_replace('\\.', '_') }}_0.tar.bz2"
 boost_tarball: /boost-{{ boost_ver }}.tar.bz2
 boost_build_dir: "/boost_{{ boost_ver | regex_replace('\\.', '_') }}_0"
-boost_build_libs: "filesystem,iostreams,math,mpi,python,random,regex,system,test,thread"
+boost_build_libs: "filesystem,math,mpi,python,random,regex,system,test,thread"
 boost_prefix: /usr/local
 boost_args: "--prefix={{ boost_prefix }} --exec-prefix={{ boost_prefix }} --with-toolset=clang --with-libraries={{ boost_build_libs }}"
+b2_build_dir: /b2
+b2_config_args: "--include-dir={{ boost_prefix }} --lib"

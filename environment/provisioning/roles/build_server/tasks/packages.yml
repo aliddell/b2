@@ -25,6 +25,16 @@
     name: autoconf
     state: present
 
+- name: install GMP
+  apt:
+    name: libgmp-dev
+    state: present
+
+- name: install MPFR
+  apt:
+    name: libmpfr-dev
+    state: present
+
 - name: install bzip2 headers
   apt:
     name: libbz2-dev

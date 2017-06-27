@@ -1,0 +1,33 @@
+---
+- name: clone B2 repo from local source
+  git:
+    repo: "file://{{ data_dir }}"
+    dest: "{{ b2_build_dir }}"
+    recursive: yes
+    update: yes
+    force: yes
+
+- name: construct `configure'
+  command: autoreconf -vfi
+  args:
+    chdir: "{{ b2_build_dir }}/core"
+    warn: False
+
+- name: configure core build
+  command: "{{ b2_build_dir }}/core/configure"
+  args:
+    chdir: "{{ b2_build_dir }}/core"
+    warn: False
+  environment:
+    CC: clang
+    CXX: clang++
+
+- name: build core
+  command: make -j{{ ansible_processor_cores }}
+  args:
+    chdir: "{{ b2_build_dir }}/core"
+#
+# - name: test core
+#   command: make -j{{ ansible_processor_cores }} check
+#   args:
+#     chdir: "{{ b2_build_dir }}/core"
