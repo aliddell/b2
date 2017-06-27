@@ -87,3 +87,6 @@ python/autom4te.cache
 
 # Vagrant directory
 .vagrant/
+
+# Ansible files
+playbook.retry

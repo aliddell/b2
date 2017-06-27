@@ -25,7 +25,29 @@
     name: autoconf
     state: present
 
-- name: download boost
+- name: install bzip2 headers
+  apt:
+    name: libbz2-dev
+    state: present
+
+- name: download Boost {{ boost_ver }}
   get_url:
     url: "{{ boost_download }}"
-    dest: /boost-{{ boost_ver }}.tar.bz2
+    dest: "{{ boost_tarball }}"
+
+- name: extract Boost
+  unarchive:
+    src: "{{ boost_tarball }}"
+    dest: /
+    remote_src: yes
+    creates: "{{ boost_build_dir }}"
+
+- name: configure Boost
+  command: "{{ boost_build_dir }}/bootstrap.sh {{ boost_args }}"
+  args:
+    chdir: "{{ boost_build_dir }}"
+
+- name: build and install Boost (go grab a cup of coffee)
+  command: "{{ boost_build_dir }}/b2 install"
+  args:
+    chdir: "{{ boost_build_dir }}"
